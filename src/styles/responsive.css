@@ -1,0 +1,77 @@
+/* Tablet: formulário acima da agenda */
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel--form {
+    position: static;
+  }
+
+  .slots__options {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* Celular */
+@media (max-width: 640px) {
+  .app {
+    padding: 16px 16px 32px;
+  }
+
+  .topbar {
+    margin-bottom: 16px;
+  }
+
+  .panel {
+    padding: 24px 20px;
+    border-radius: var(--radius-lg);
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .form {
+    margin-top: 24px;
+    gap: 24px;
+  }
+
+  .slots__options {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .agenda__header {
+    flex-direction: column;
+  }
+
+  .input--compact {
+    width: 100%;
+  }
+
+  .period__header {
+    padding: 12px 14px;
+  }
+
+  .period__list {
+    padding: 6px;
+  }
+
+  .appointment {
+    grid-template-columns: 58px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+
+  .toasts {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .dialog__actions {
+    flex-direction: column-reverse;
+  }
+
+  .dialog__actions .button {
+    width: 100%;
+  }
+}
