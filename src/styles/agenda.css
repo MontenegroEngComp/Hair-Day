@@ -26,7 +26,7 @@
   gap: 16px;
 }
 
-/* Card de período */
+/* Card de período: ícones e horários no dourado da marca, como no layout original. */
 .period {
   --period-color: var(--primary);
   --period-soft: var(--primary-soft);
@@ -35,21 +35,6 @@
   border-radius: var(--radius-lg);
   background: var(--surface-muted);
   overflow: hidden;
-}
-
-.period--morning {
-  --period-color: var(--morning);
-  --period-soft: var(--morning-soft);
-}
-
-.period--afternoon {
-  --period-color: var(--afternoon);
-  --period-soft: var(--afternoon-soft);
-}
-
-.period--night {
-  --period-color: var(--night);
-  --period-soft: var(--night-soft);
 }
 
 .period__header {

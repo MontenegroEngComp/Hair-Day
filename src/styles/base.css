@@ -18,12 +18,25 @@ body {
   line-height: 1.5;
   color: var(--text);
   background:
-    radial-gradient(1100px 620px at -10% -10%, var(--bg-glow-1), transparent 60%),
-    radial-gradient(900px 560px at 110% 0%, var(--bg-glow-2), transparent 60%),
+    radial-gradient(1000px 560px at 50% -12%, var(--bg-glow-1), transparent 70%),
+    radial-gradient(700px 500px at 100% 100%, var(--bg-glow-2), transparent 70%),
     var(--bg);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
+}
+
+/* Padrão de pontos dourados que esmaece em direção ao centro da página. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(var(--bg-pattern) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 10%, transparent 75%);
 }
 
 img,
@@ -105,8 +118,8 @@ ul {
   z-index: 100;
   padding: 10px 16px;
   border-radius: var(--radius-pill);
-  background: var(--primary);
-  color: var(--on-primary);
+  background: var(--accent);
+  color: var(--on-accent);
   font-weight: 600;
   text-decoration: none;
   transform: translateY(-160%);

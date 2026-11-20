@@ -1,7 +1,8 @@
 /*
  * Design tokens
- * Paleta quente (linho + ameixa) com tema escuro equivalente.
- * Todo o restante do CSS referencia apenas estas variáveis.
+ * Dourado do layout original (#B8952E / #846F2E) sobre tons neutros quentes,
+ * com tema claro (marfim) e escuro (café). Todo o restante do CSS referencia
+ * apenas estas variáveis.
  */
 :root {
   color-scheme: light;
@@ -16,44 +17,43 @@
   --text-lg: 1.125rem;  /* 18px */
   --text-xl: 1.75rem;   /* 28px */
 
+  /* Fundo */
+  --bg: #f4efe6;
+  --bg-glow-1: rgba(184, 149, 46, 0.16);
+  --bg-glow-2: rgba(132, 111, 46, 0.08);
+  --bg-pattern: rgba(132, 111, 46, 0.14);
+
   /* Superfícies */
-  --bg: #f6f1ec;
-  --bg-glow-1: rgba(163, 71, 107, 0.1);
-  --bg-glow-2: rgba(217, 138, 31, 0.08);
-  --surface: #ffffff;
-  --surface-muted: #fbf8f5;
-  --surface-sunken: #f3ece6;
-  --border: #ece3dc;
-  --border-strong: #dccfc5;
+  --surface: #fffdf9;
+  --surface-highlight: #ffffff;
+  --surface-muted: #faf6ee;
+  --surface-sunken: #f1ebdf;
+  --border: #ebe3d4;
+  --border-strong: #dbd0bc;
+  --panel-border: rgba(184, 149, 46, 0.22);
 
   /* Texto */
-  --text: #2a1f25;
-  --text-muted: #6e6066;
-  --text-subtle: #8a7b82;
-  --text-disabled: #b9adb3;
+  --text: #231e15;
+  --text-muted: #675e4f;
+  --text-subtle: #857a68;
+  --text-disabled: #b8ad9a;
 
-  /* Marca */
-  --primary: #a3476b;
-  --primary-hover: #8c3a5a;
-  --primary-soft: #f7e6ec;
-  --primary-ring: rgba(163, 71, 107, 0.25);
-  --on-primary: #ffffff;
+  /* Marca — `primary` para textos e ícones, `accent` para preenchimentos */
+  --primary: #846f2e;
+  --primary-hover: #6b5a24;
+  --primary-soft: #f6eed6;
+  --primary-ring: rgba(184, 149, 46, 0.3);
+  --accent: #b8952e;
+  --accent-strong: #a0801f;
+  --on-accent: #1a1508;
 
   /* Feedback */
-  --danger: #c2413b;
-  --danger-hover: #a8332e;
-  --danger-soft: #fce9e7;
-  --danger-ring: rgba(194, 65, 59, 0.22);
+  --danger: #b93a34;
+  --danger-hover: #9f2f2a;
+  --danger-soft: #fbe9e6;
+  --danger-ring: rgba(185, 58, 52, 0.22);
   --success: #2e7d5b;
   --success-soft: #e4f3eb;
-
-  /* Períodos do dia */
-  --morning: #c77a12;
-  --morning-soft: #fdf1dc;
-  --afternoon: #d0603f;
-  --afternoon-soft: #fce8e1;
-  --night: #5b5bd6;
-  --night-soft: #ebebfc;
 
   /* Forma */
   --radius-sm: 10px;
@@ -63,10 +63,10 @@
   --radius-pill: 999px;
 
   /* Profundidade */
-  --shadow-sm: 0 1px 2px rgba(42, 31, 37, 0.06);
-  --shadow-md: 0 12px 32px -16px rgba(42, 31, 37, 0.2), 0 2px 6px rgba(42, 31, 37, 0.04);
-  --shadow-lg: 0 24px 56px -20px rgba(42, 31, 37, 0.35);
-  --shadow-primary: 0 10px 24px -10px rgba(163, 71, 107, 0.6);
+  --shadow-sm: 0 1px 2px rgba(35, 30, 21, 0.06);
+  --shadow-md: 0 18px 40px -22px rgba(74, 58, 20, 0.3), 0 2px 6px rgba(35, 30, 21, 0.04);
+  --shadow-lg: 0 28px 60px -24px rgba(74, 58, 20, 0.4);
+  --shadow-accent: 0 12px 26px -12px rgba(184, 149, 46, 0.75);
 
   /* Movimento */
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -76,42 +76,41 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #141016;
-  --bg-glow-1: rgba(229, 139, 175, 0.1);
-  --bg-glow-2: rgba(91, 91, 214, 0.1);
-  --surface: #1d1720;
-  --surface-muted: #231c27;
-  --surface-sunken: #18131a;
-  --border: #322a36;
-  --border-strong: #45394a;
+  --bg: #0b0a08;
+  --bg-glow-1: rgba(201, 163, 56, 0.24);
+  --bg-glow-2: rgba(132, 111, 46, 0.16);
+  --bg-pattern: rgba(212, 176, 74, 0.12);
 
-  --text: #f5eff2;
-  --text-muted: #c2b5bc;
-  --text-subtle: #9b8d94;
-  --text-disabled: #5e5260;
+  --surface: #1f1b15;
+  --surface-highlight: #2a251c;
+  --surface-muted: rgba(255, 244, 214, 0.035);
+  --surface-sunken: #18150f;
+  --border: #352e23;
+  --border-strong: #4a4031;
+  --panel-border: rgba(212, 176, 74, 0.3);
 
-  --primary: #e58baf;
-  --primary-hover: #f0a6c4;
-  --primary-soft: rgba(229, 139, 175, 0.14);
-  --primary-ring: rgba(229, 139, 175, 0.32);
-  --on-primary: #2b1020;
+  --text: #f6f1e7;
+  --text-muted: #bdb3a2;
+  --text-subtle: #8f8573;
+  --text-disabled: #575043;
 
-  --danger: #f08a80;
-  --danger-hover: #f6a59d;
-  --danger-soft: rgba(240, 138, 128, 0.14);
-  --danger-ring: rgba(240, 138, 128, 0.3);
-  --success: #74d3a6;
-  --success-soft: rgba(116, 211, 166, 0.14);
+  --primary: #d4b04a;
+  --primary-hover: #e3c46a;
+  --primary-soft: rgba(212, 176, 74, 0.13);
+  --primary-ring: rgba(212, 176, 74, 0.3);
+  --accent: #c9a338;
+  --accent-strong: #b8952e;
+  --on-accent: #17130a;
 
-  --morning: #f2b860;
-  --morning-soft: rgba(242, 184, 96, 0.14);
-  --afternoon: #f29a7e;
-  --afternoon-soft: rgba(242, 154, 126, 0.14);
-  --night: #a9aaf7;
-  --night-soft: rgba(169, 170, 247, 0.14);
+  --danger: #ef8a7f;
+  --danger-hover: #f5a49b;
+  --danger-soft: rgba(239, 138, 127, 0.13);
+  --danger-ring: rgba(239, 138, 127, 0.3);
+  --success: #7fcf9f;
+  --success-soft: rgba(127, 207, 159, 0.13);
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 16px 40px -20px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 28px 64px -24px rgba(0, 0, 0, 0.85);
-  --shadow-primary: 0 10px 28px -12px rgba(229, 139, 175, 0.55);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 24px 50px -24px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 30px 70px -24px rgba(0, 0, 0, 0.95);
+  --shadow-accent: 0 12px 30px -12px rgba(201, 163, 56, 0.55);
 }
