@@ -1,0 +1,10 @@
+node_modules/
+dist/
+
+# Banco de dados local gerado por `npm run seed`
+server.json
+
+.env
+.env.local
+.DS_Store
+*.log

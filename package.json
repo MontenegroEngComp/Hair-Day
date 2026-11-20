@@ -1,0 +1,28 @@
+{
+  "name": "hair-day",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plataforma de agendamento de atendimentos para salões de beleza, com formulário validado e integração a uma API REST.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "seed": "node scripts/seed.js",
+    "preserver": "node scripts/seed.js --if-missing",
+    "server": "json-server --watch server.json --port 3333",
+    "start": "npm run preserver && concurrently -k -n api,web -c magenta,cyan \"json-server --watch server.json --port 3333\" \"vite\"",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "author": "Clarisse Maria Cabral Montenegro",
+  "devDependencies": {
+    "concurrently": "^10.0.7",
+    "json-server": "^0.17.4",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
+}
