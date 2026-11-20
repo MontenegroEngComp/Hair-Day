@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Hair Day: agende atendimentos e acompanhe a agenda do seu salão por dia."
+    />
+    <meta name="theme-color" content="#f6f1ec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141016" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Aplica o tema salvo antes da primeira pintura, evitando o "piscar" de cores. -->
+    <script>
+      try {
+        const theme =
+          localStorage.getItem("hair-day:theme") ??
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+        document.documentElement.dataset.theme = theme
+      } catch {}
+    </script>
+
+    <title>Hair Day · Agendamentos</title>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#schedule-form">Pular para o formulário de agendamento</a>
+
+    <div class="app">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Hair Day, página inicial">
+          <span class="brand__mark" aria-hidden="true">
+            <span class="icon icon--scissors"></span>
+          </span>
+          <span class="brand__name">Hair<strong>Day</strong></span>
+        </a>
+
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Alternar tema">
+          <svg class="theme-icon theme-icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />
+          </svg>
+          <svg class="theme-icon theme-icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+        </button>
+      </header>
+
+      <main class="layout">
+        <!-- Formulário de agendamento -->
+        <section class="panel panel--form" aria-labelledby="form-title">
+          <div class="panel__heading">
+            <p class="eyebrow">Novo atendimento</p>
+            <h1 id="form-title" class="title">Agende um atendimento</h1>
+            <p class="subtitle">
+              Selecione data, horário e informe o nome do cliente para criar o agendamento.
+            </p>
+          </div>
+
+          <form id="schedule-form" class="form" novalidate>
+            <div class="field">
+              <label class="field__label" for="form-date">Data</label>
+              <div class="input input--date">
+                <span class="icon icon--calendar input__icon" aria-hidden="true"></span>
+                <input
+                  id="form-date"
+                  name="date"
+                  type="date"
+                  required
+                  aria-describedby="form-date-error"
+                />
+                <span class="icon icon--chevron input__chevron" aria-hidden="true"></span>
+              </div>
+              <p id="form-date-error" class="field__error" aria-live="polite"></p>
+            </div>
+
+            <fieldset class="field" aria-describedby="time-error">
+              <legend class="field__label">Horários</legend>
+              <div id="time-slots" class="slots">
+                <div class="slots__message"><p>Carregando horários…</p></div>
+              </div>
+              <p id="time-error" class="field__error" aria-live="polite"></p>
+            </fieldset>
+
+            <div class="field">
+              <label class="field__label" for="client-name">Cliente</label>
+              <div class="input">
+                <span class="icon icon--user input__icon" aria-hidden="true"></span>
+                <input
+                  id="client-name"
+                  name="name"
+                  type="text"
+                  placeholder="Nome do cliente"
+                  autocomplete="name"
+                  autocapitalize="words"
+                  spellcheck="false"
+                  maxlength="60"
+                  required
+                  aria-describedby="client-name-error"
+                />
+              </div>
+              <p id="client-name-error" class="field__error" aria-live="polite"></p>
+            </div>
+
+            <button class="button" type="submit">
+              <span class="button__spinner" aria-hidden="true"></span>
+              <span class="button__label">Agendar atendimento</span>
+            </button>
+          </form>
+        </section>
+
+        <!-- Agenda do dia -->
+        <section id="agenda" class="panel panel--agenda" aria-labelledby="agenda-title">
+          <header class="agenda__header">
+            <div class="panel__heading">
+              <p class="eyebrow">Agenda</p>
+              <h2 id="agenda-title" class="title">Sua agenda</h2>
+              <p class="subtitle">Consulte os cortes de cabelo agendados por dia.</p>
+            </div>
+
+            <div class="input input--date input--compact">
+              <span class="icon icon--calendar input__icon" aria-hidden="true"></span>
+              <input id="agenda-date" type="date" aria-label="Data da agenda" />
+              <span class="icon icon--chevron input__chevron" aria-hidden="true"></span>
+            </div>
+          </header>
+
+          <p id="agenda-summary" class="agenda__summary" aria-live="polite"></p>
+
+          <div id="agenda-status" class="alert" role="alert" hidden>
+            <p class="alert__message"></p>
+            <button class="link-button alert__retry" type="button">Tentar novamente</button>
+          </div>
+
+          <div id="periods" class="periods">
+            <article class="period period--morning" data-period="morning" aria-labelledby="period-morning">
+              <header class="period__header">
+                <span class="period__icon" aria-hidden="true"><span class="icon icon--sun"></span></span>
+                <h3 id="period-morning" class="period__title">Manhã</h3>
+                <span class="period__range">09h–12h</span>
+                <span class="period__count" aria-label="Agendamentos no período">–</span>
+              </header>
+              <ul class="period__list"></ul>
+            </article>
+
+            <article class="period period--afternoon" data-period="afternoon" aria-labelledby="period-afternoon">
+              <header class="period__header">
+                <span class="period__icon" aria-hidden="true"><span class="icon icon--cloud"></span></span>
+                <h3 id="period-afternoon" class="period__title">Tarde</h3>
+                <span class="period__range">13h–18h</span>
+                <span class="period__count" aria-label="Agendamentos no período">–</span>
+              </header>
+              <ul class="period__list"></ul>
+            </article>
+
+            <article class="period period--night" data-period="night" aria-labelledby="period-night">
+              <header class="period__header">
+                <span class="period__icon" aria-hidden="true"><span class="icon icon--moon"></span></span>
+                <h3 id="period-night" class="period__title">Noite</h3>
+                <span class="period__range">19h–21h</span>
+                <span class="period__count" aria-label="Agendamentos no período">–</span>
+              </header>
+              <ul class="period__list"></ul>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="confirm-dialog" class="dialog" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+      <form method="dialog" class="dialog__content">
+        <span class="dialog__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" />
+          </svg>
+        </span>
+        <h2 id="confirm-dialog-title" class="dialog__title"></h2>
+        <p id="confirm-dialog-message" class="dialog__message"></p>
+        <div class="dialog__actions">
+          <button class="button button--ghost" value="cancel" autofocus>Voltar</button>
+          <button class="button button--danger" value="confirm">Confirmar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
