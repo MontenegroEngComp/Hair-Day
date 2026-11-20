@@ -1,0 +1,117 @@
+/*
+ * Design tokens
+ * Paleta quente (linho + ameixa) com tema escuro equivalente.
+ * Todo o restante do CSS referencia apenas estas variáveis.
+ */
+:root {
+  color-scheme: light;
+
+  /* Tipografia */
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  --text-xs: 0.75rem;   /* 12px */
+  --text-sm: 0.875rem;  /* 14px */
+  --text-md: 1rem;      /* 16px */
+  --text-lg: 1.125rem;  /* 18px */
+  --text-xl: 1.75rem;   /* 28px */
+
+  /* Superfícies */
+  --bg: #f6f1ec;
+  --bg-glow-1: rgba(163, 71, 107, 0.1);
+  --bg-glow-2: rgba(217, 138, 31, 0.08);
+  --surface: #ffffff;
+  --surface-muted: #fbf8f5;
+  --surface-sunken: #f3ece6;
+  --border: #ece3dc;
+  --border-strong: #dccfc5;
+
+  /* Texto */
+  --text: #2a1f25;
+  --text-muted: #6e6066;
+  --text-subtle: #8a7b82;
+  --text-disabled: #b9adb3;
+
+  /* Marca */
+  --primary: #a3476b;
+  --primary-hover: #8c3a5a;
+  --primary-soft: #f7e6ec;
+  --primary-ring: rgba(163, 71, 107, 0.25);
+  --on-primary: #ffffff;
+
+  /* Feedback */
+  --danger: #c2413b;
+  --danger-hover: #a8332e;
+  --danger-soft: #fce9e7;
+  --danger-ring: rgba(194, 65, 59, 0.22);
+  --success: #2e7d5b;
+  --success-soft: #e4f3eb;
+
+  /* Períodos do dia */
+  --morning: #c77a12;
+  --morning-soft: #fdf1dc;
+  --afternoon: #d0603f;
+  --afternoon-soft: #fce8e1;
+  --night: #5b5bd6;
+  --night-soft: #ebebfc;
+
+  /* Forma */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* Profundidade */
+  --shadow-sm: 0 1px 2px rgba(42, 31, 37, 0.06);
+  --shadow-md: 0 12px 32px -16px rgba(42, 31, 37, 0.2), 0 2px 6px rgba(42, 31, 37, 0.04);
+  --shadow-lg: 0 24px 56px -20px rgba(42, 31, 37, 0.35);
+  --shadow-primary: 0 10px 24px -10px rgba(163, 71, 107, 0.6);
+
+  /* Movimento */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration: 180ms;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #141016;
+  --bg-glow-1: rgba(229, 139, 175, 0.1);
+  --bg-glow-2: rgba(91, 91, 214, 0.1);
+  --surface: #1d1720;
+  --surface-muted: #231c27;
+  --surface-sunken: #18131a;
+  --border: #322a36;
+  --border-strong: #45394a;
+
+  --text: #f5eff2;
+  --text-muted: #c2b5bc;
+  --text-subtle: #9b8d94;
+  --text-disabled: #5e5260;
+
+  --primary: #e58baf;
+  --primary-hover: #f0a6c4;
+  --primary-soft: rgba(229, 139, 175, 0.14);
+  --primary-ring: rgba(229, 139, 175, 0.32);
+  --on-primary: #2b1020;
+
+  --danger: #f08a80;
+  --danger-hover: #f6a59d;
+  --danger-soft: rgba(240, 138, 128, 0.14);
+  --danger-ring: rgba(240, 138, 128, 0.3);
+  --success: #74d3a6;
+  --success-soft: rgba(116, 211, 166, 0.14);
+
+  --morning: #f2b860;
+  --morning-soft: rgba(242, 184, 96, 0.14);
+  --afternoon: #f29a7e;
+  --afternoon-soft: rgba(242, 154, 126, 0.14);
+  --night: #a9aaf7;
+  --night-soft: rgba(169, 170, 247, 0.14);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 16px 40px -20px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 28px 64px -24px rgba(0, 0, 0, 0.85);
+  --shadow-primary: 0 10px 28px -12px rgba(229, 139, 175, 0.55);
+}
