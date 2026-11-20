@@ -5,12 +5,12 @@
 </p>
 
 <p align="center">
-  <img alt="Status: projeto concluído" src="https://img.shields.io/badge/status-conclu%C3%ADdo-A3476B?style=flat-square&labelColor=2A1F25">
-  <img alt="JavaScript ES Modules" src="https://img.shields.io/badge/JavaScript-ES%20Modules-A3476B?style=flat-square&logo=javascript&logoColor=white&labelColor=2A1F25">
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-8-A3476B?style=flat-square&logo=vite&logoColor=white&labelColor=2A1F25">
-  <img alt="json-server" src="https://img.shields.io/badge/API-json--server-A3476B?style=flat-square&logo=json&logoColor=white&labelColor=2A1F25">
-  <img alt="Vitest" src="https://img.shields.io/badge/testes-Vitest-A3476B?style=flat-square&logo=vitest&logoColor=white&labelColor=2A1F25">
-  <img alt="Tema claro e escuro" src="https://img.shields.io/badge/tema-claro%20%2F%20escuro-A3476B?style=flat-square&labelColor=2A1F25">
+  <img alt="Status: projeto concluído" src="https://img.shields.io/badge/status-conclu%C3%ADdo-B8952E?style=flat-square&labelColor=231E15">
+  <img alt="JavaScript ES Modules" src="https://img.shields.io/badge/JavaScript-ES%20Modules-B8952E?style=flat-square&logo=javascript&logoColor=white&labelColor=231E15">
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-8-B8952E?style=flat-square&logo=vite&logoColor=white&labelColor=231E15">
+  <img alt="json-server" src="https://img.shields.io/badge/API-json--server-B8952E?style=flat-square&logo=json&logoColor=white&labelColor=231E15">
+  <img alt="Vitest" src="https://img.shields.io/badge/testes-Vitest-B8952E?style=flat-square&logo=vitest&logoColor=white&labelColor=231E15">
+  <img alt="Tema claro e escuro" src="https://img.shields.io/badge/tema-claro%20%2F%20escuro-B8952E?style=flat-square&labelColor=231E15">
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@
 
 O **Hair Day** é uma aplicação para salões de beleza organizarem seus atendimentos. Em uma única tela, é possível **agendar um corte** escolhendo data, horário e cliente, e **consultar a agenda de qualquer dia**, separada por manhã, tarde e noite, com a opção de cancelar agendamentos.
 
-O projeto foi construído com **JavaScript puro (ES Modules)**, sem frameworks, com foco em **formulários** (validação, acessibilidade e estados de envio) e **integração com API REST** (`GET`, `POST` e `DELETE` com `fetch`). O layout parte do modelo *Plataforma de agendamento*, disponível na Figma Community, e recebeu uma **identidade visual nova**, descrita em [Design](#design).
+O projeto foi construído com **JavaScript puro (ES Modules)**, sem frameworks, com foco em **formulários** (validação, acessibilidade e estados de envio) e **integração com API REST** (`GET`, `POST` e `DELETE` com `fetch`). O layout parte do modelo *Plataforma de agendamento*, disponível na Figma Community, e foi redesenhado com o dourado original sobre um fundo mais elegante, como descrito em [Design](#design).
 
 ## Demonstração visual
 
@@ -41,7 +41,7 @@ O projeto foi construído com **JavaScript puro (ES Modules)**, sem frameworks, 
 </p>
 
 <p align="center">
-  <img src="docs/desktop-dark.png" width="100%" alt="A mesma tela no tema escuro, com fundo ameixa escuro e destaques em rosa">
+  <img src="docs/desktop-dark.png" width="100%" alt="A mesma tela no tema escuro, com fundo café, brilho dourado no topo e painéis com borda dourada">
 </p>
 
 <p align="center">
@@ -123,16 +123,19 @@ As funções de cada rota ficam em [`src/services/schedules.js`](src/services/sc
 
 ## Design
 
-O layout original do Figma usa fundo cinza-escuro, destaque mostarda e cantos quase retos. Para uma aparência mais acolhedora, alinhada a um salão de beleza, a interface foi redesenhada mantendo a mesma estrutura e os mesmos ícones:
+O layout original do Figma usa fundo cinza-escuro, cards cinza e cantos quase retos. A interface foi redesenhada para uma aparência mais elegante, mantendo a mesma estrutura, os mesmos ícones e o **dourado da marca** (`#B8952E` e `#846F2E`), para que as cores conversem com os ícones:
 
 | Aspecto | Figma original | Hair Day |
 | --- | --- | --- |
-| Paleta | Cinzas escuros e mostarda `#B8952E` | Linho quente `#F6F1EC`, branco e ameixa `#A3476B`; tema escuro com rosa `#E58BAF` |
+| Paleta | Cinzas frios e dourado `#B8952E` | Dourado `#B8952E` sobre tons neutros quentes: marfim `#F4EFE6` no tema claro e café `#0B0A08` no escuro |
+| Fundo | Cor sólida | Brilho dourado no topo e padrão de pontos finos que esmaece em direção ao conteúdo |
+| Cards | Cinza sobre cinza | Gradiente de luz no topo e borda dourada fina, destacando os painéis do fundo nos dois temas |
 | Forma | Raios de 8px | Painéis com 28px, campos com 14px, horários e botões em formato de pílula |
-| Profundidade | Superfícies chapadas | Sombras suaves, brilho radial no fundo e degradê nos elementos de destaque |
 | Tipografia | Catamaran | Fraunces (títulos) e Plus Jakarta Sans (textos) |
-| Períodos | Ícones na cor da marca | Ícones em círculos coloridos: âmbar (manhã), coral (tarde) e índigo (noite) |
+| Períodos | Ícones dourados | Ícones dourados em círculos com fundo suave e contador de agendamentos |
 | Tema | Somente escuro | Claro e escuro |
+
+No tema claro, o dourado de preenchimento (`--accent`) é usado em botões e no horário selecionado com texto escuro, e textos e ícones usam o tom mais escuro do layout (`#846F2E`), mantendo o contraste legível sobre fundos claros.
 
 ### Design tokens
 
@@ -140,14 +143,16 @@ Cores, raios, sombras e tipografia ficam centralizados em variáveis no `:root` 
 
 | Token | Claro | Escuro | Uso |
 | --- | --- | --- | --- |
-| `--bg` | `#F6F1EC` | `#141016` | Fundo da página |
-| `--surface` | `#FFFFFF` | `#1D1720` | Painéis e cards |
-| `--border-strong` | `#DCCFC5` | `#45394A` | Bordas de campos e horários |
-| `--text` | `#2A1F25` | `#F5EFF2` | Títulos e textos principais |
-| `--text-muted` | `#6E6066` | `#C2B5BC` | Textos de apoio |
-| `--primary` | `#A3476B` | `#E58BAF` | Marca, horário selecionado e botão principal |
-| `--danger` | `#C2413B` | `#F08A80` | Erros e cancelamento |
-| `--morning` / `--afternoon` / `--night` | `#C77A12` / `#D0603F` / `#5B5BD6` | `#F2B860` / `#F29A7E` / `#A9AAF7` | Cores dos períodos |
+| `--bg` | `#F4EFE6` | `#0B0A08` | Fundo da página |
+| `--surface` | `#FFFDF9` | `#1F1B15` | Painéis |
+| `--panel-border` | dourado a 22% | dourado a 30% | Borda dos painéis |
+| `--border-strong` | `#DBD0BC` | `#4A4031` | Bordas de campos e horários |
+| `--text` | `#231E15` | `#F6F1E7` | Títulos e textos principais |
+| `--text-muted` | `#675E4F` | `#BDB3A2` | Textos de apoio |
+| `--accent` | `#B8952E` | `#C9A338` | Logo, horário selecionado e botão principal |
+| `--primary` | `#846F2E` | `#D4B04A` | Textos, ícones e foco na cor da marca |
+| `--on-accent` | `#1A1508` | `#17130A` | Texto sobre o dourado |
+| `--danger` | `#B93A34` | `#EF8A7F` | Erros e cancelamento |
 | `--radius-md` / `--radius-xl` / `--radius-pill` | 14px / 28px / 999px | — | Campos, painéis e horários/botões |
 
 Os ícones SVG do Figma são aplicados como **máscara CSS** (`mask-image`), então assumem a cor do texto (`currentColor`) e acompanham o tema sem duplicar arquivos.
