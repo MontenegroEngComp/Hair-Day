@@ -1,0 +1,270 @@
+.agenda__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.agenda__summary {
+  margin: 24px 0 16px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.agenda__summary::first-letter {
+  text-transform: uppercase;
+}
+
+.agenda__summary:empty {
+  margin-bottom: 0;
+}
+
+.periods {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card de período */
+.period {
+  --period-color: var(--primary);
+  --period-soft: var(--primary-soft);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+  overflow: hidden;
+}
+
+.period--morning {
+  --period-color: var(--morning);
+  --period-soft: var(--morning-soft);
+}
+
+.period--afternoon {
+  --period-color: var(--afternoon);
+  --period-soft: var(--afternoon-soft);
+}
+
+.period--night {
+  --period-color: var(--night);
+  --period-soft: var(--night-soft);
+}
+
+.period__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.period__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--period-soft);
+  color: var(--period-color);
+}
+
+.period__title {
+  flex: 1;
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.period__range {
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.period__count {
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--period-soft);
+  color: var(--period-color);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.period__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px;
+}
+
+.period__list:empty {
+  display: none;
+}
+
+.period:has(.period__list:empty) .period__header {
+  border-bottom: 0;
+}
+
+/* Agendamento */
+.appointment {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 6px 8px 6px 12px;
+  border-radius: var(--radius-md);
+  transition: background-color var(--duration) var(--ease);
+  animation: fade-in 260ms var(--ease) both;
+}
+
+.appointment:not(.appointment--empty, .appointment--skeleton):hover {
+  background: var(--surface);
+}
+
+.appointment__time {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  background: var(--period-soft);
+  color: var(--period-color);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.appointment__name {
+  overflow: hidden;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.appointment__cancel {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  color: var(--text-subtle);
+  transition:
+    color var(--duration) var(--ease),
+    background-color var(--duration) var(--ease),
+    opacity var(--duration) var(--ease);
+}
+
+.appointment__cancel svg {
+  width: 18px;
+  height: 18px;
+}
+
+.appointment__cancel:hover,
+.appointment__cancel:focus-visible {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+/* Em dispositivos com mouse, o botão de cancelar aparece ao passar sobre a linha. */
+@media (hover: hover) {
+  .appointment__cancel {
+    opacity: 0;
+  }
+
+  .appointment:hover .appointment__cancel,
+  .appointment__cancel:focus-visible {
+    opacity: 1;
+  }
+}
+
+.appointment--done .appointment__time,
+.appointment--done .appointment__name {
+  opacity: 0.55;
+}
+
+.appointment__badge {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--success-soft);
+  color: var(--success);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.appointment--empty {
+  display: block;
+  min-height: 0;
+  padding: 14px 12px;
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+}
+
+/* Carregamento */
+.skeleton {
+  display: block;
+  height: 14px;
+  width: 60%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    90deg,
+    var(--surface-sunken) 0%,
+    var(--border) 50%,
+    var(--surface-sunken) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton--time {
+  width: 100%;
+  height: 30px;
+}
+
+/* Erro de conexão */
+.alert {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--danger-ring);
+  border-radius: var(--radius-md);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.alert[hidden] {
+  display: none;
+}
+
+.alert .link-button {
+  color: inherit;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
