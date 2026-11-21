@@ -23,6 +23,15 @@
     margin-bottom: 16px;
   }
 
+  /* No celular, o selo de demonstração ocupa o espaço do nome ao lado da logo. */
+  .topbar:has(.demo-badge:not([hidden])) .brand__name {
+    display: none;
+  }
+
+  .demo-badge__hint {
+    display: none;
+  }
+
   .panel {
     padding: 24px 20px;
     border-radius: var(--radius-lg);
