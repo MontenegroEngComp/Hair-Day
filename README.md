@@ -11,12 +11,18 @@
   <img alt="json-server" src="https://img.shields.io/badge/API-json--server-B8952E?style=flat-square&logo=json&logoColor=white&labelColor=231E15">
   <img alt="Vitest" src="https://img.shields.io/badge/testes-Vitest-B8952E?style=flat-square&logo=vitest&logoColor=white&labelColor=231E15">
   <img alt="Tema claro e escuro" src="https://img.shields.io/badge/tema-claro%20%2F%20escuro-B8952E?style=flat-square&labelColor=231E15">
+  <img alt="Deploy automático no GitHub Pages" src="https://img.shields.io/github/actions/workflow/status/MontenegroEngComp/Hair-Day/deploy.yml?branch=main&style=flat-square&label=deploy&logo=githubactions&logoColor=white&labelColor=231E15">
+</p>
+
+<p align="center">
+  <a href="https://montenegroengcomp.github.io/Hair-Day/"><img alt="Ver projeto online" src="https://img.shields.io/badge/ver%20projeto-online-B8952E?style=for-the-badge&logo=githubpages&logoColor=white&labelColor=231E15"></a>
 </p>
 
 <p align="center">
   <a href="#demonstração-visual">Demonstração visual</a> •
   <a href="#funcionalidades">Funcionalidades</a> •
   <a href="#integração-com-a-api">Integração com a API</a> •
+  <a href="#versão-online-modo-demonstração">Versão online</a> •
   <a href="#design">Design</a> •
   <a href="#tecnologias">Tecnologias</a> •
   <a href="#estrutura-de-pastas">Estrutura de pastas</a> •
@@ -33,6 +39,8 @@
 O **Hair Day** é uma aplicação para salões de beleza organizarem seus atendimentos. Em uma única tela, é possível **agendar um corte** escolhendo data, horário e cliente, e **consultar a agenda de qualquer dia**, separada por manhã, tarde e noite, com a opção de cancelar agendamentos.
 
 O projeto foi construído com **JavaScript puro (ES Modules)**, sem frameworks, com foco em **formulários** (validação, acessibilidade e estados de envio) e **integração com API REST** (`GET`, `POST` e `DELETE` com `fetch`). O layout parte do modelo *Plataforma de agendamento*, disponível na Figma Community, e foi redesenhado com o dourado original sobre um fundo mais elegante, como descrito em [Design](#design).
+
+🔗 **Acesse:** https://montenegroengcomp.github.io/Hair-Day/ (versão de demonstração, com os dados salvos no navegador; veja [Versão online](#versão-online-modo-demonstração))
 
 ## Demonstração visual
 
@@ -121,6 +129,26 @@ As chamadas passam por um cliente HTTP próprio, em [`src/services/api.js`](src/
 
 As funções de cada rota ficam em [`src/services/schedules.js`](src/services/schedules.js), isolando o restante do código dos detalhes de URL e método HTTP.
 
+## Versão online (modo demonstração)
+
+O GitHub Pages hospeda apenas arquivos estáticos e não executa o json-server. Para que o projeto possa ser testado direto no navegador, a versão publicada em **https://montenegroengcomp.github.io/Hair-Day/** roda em **modo demonstração**:
+
+- O build do Pages (`npm run build:pages`) usa o arquivo [`.env.pages`](.env.pages), que define `VITE_API_MODE=local`.
+- Nesse modo, o cliente HTTP repassa as requisições para [`src/services/local-api.js`](src/services/local-api.js), que responde às **mesmas rotas** (`GET`, `POST` e `DELETE` em `/schedules`) guardando os dados no `localStorage`, com um pequeno atraso simulado para manter visíveis os estados de carregamento.
+- Formulário, validações, agenda e serviços são exatamente os mesmos. Só muda a origem dos dados.
+- Na primeira visita, a agenda já vem com agendamentos de exemplo para hoje e amanhã.
+- Um selo **Modo demonstração** no topo da página indica que os dados ficam salvos apenas no navegador.
+
+Diferenças em relação à execução local com a API:
+
+| | Local (`npm start`) | Online (GitHub Pages) |
+| --- | --- | --- |
+| Origem dos dados | json-server (`server.json`) | `localStorage` do navegador |
+| Dados compartilhados | Entre todas as abas e navegadores | Apenas no navegador de quem acessa |
+| Requisições HTTP | `fetch` real, com timeout e tratamento de erros | Simuladas no próprio navegador |
+
+O deploy é automático: a cada push na branch `main`, o workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) instala as dependências, roda os testes, gera o build e publica no GitHub Pages.
+
 ## Design
 
 O layout original do Figma usa fundo cinza-escuro, cards cinza e cantos quase retos. A interface foi redesenhada para uma aparência mais elegante, mantendo a mesma estrutura, os mesmos ícones e o **dourado da marca** (`#B8952E` e `#846F2E`), para que as cores conversem com os ícones:
@@ -168,6 +196,7 @@ Os ícones SVG do Figma são aplicados como **máscara CSS** (`mask-image`), ent
 | API REST simulada | [json-server](https://github.com/typicode/json-server) | 0.17 |
 | Testes | [Vitest](https://vitest.dev/) | 5 |
 | Execução paralela | [concurrently](https://github.com/open-cli-tools/concurrently) | 10 |
+| Deploy | GitHub Actions e GitHub Pages | — |
 | Tipografia | Google Fonts — Fraunces e Plus Jakarta Sans | — |
 | Ícones | SVG (Phosphor, do layout original) | — |
 
@@ -175,6 +204,8 @@ Os ícones SVG do Figma são aplicados como **máscara CSS** (`mask-image`), ent
 
 ```text
 .
+├── .github/workflows/
+│   └── deploy.yml                # Testes, build e publicação no GitHub Pages
 ├── docs/                         # Capturas de tela usadas no README
 ├── public/
 │   ├── icons/                    # Ícones SVG exportados do Figma
@@ -182,6 +213,8 @@ Os ícones SVG do Figma são aplicados como **máscara CSS** (`mask-image`), ent
 ├── scripts/
 │   └── seed.js                   # Gera o server.json com agendamentos de exemplo
 ├── src/
+│   ├── data/
+│   │   └── sample-schedules.js   # Agendamentos de exemplo (seed e modo demonstração)
 │   ├── modules/
 │   │   ├── agenda/
 │   │   │   └── agenda.js         # Carrega, agrupa, exibe e cancela agendamentos
@@ -196,6 +229,8 @@ Os ícones SVG do Figma são aplicados como **máscara CSS** (`mask-image`), ent
 │   │       └── toast.js          # Notificações
 │   ├── services/
 │   │   ├── api.js                # Cliente HTTP (fetch, timeout e tratamento de erros)
+│   │   ├── api-error.js          # Erro padronizado da API
+│   │   ├── local-api.js          # API no localStorage, usada no modo demonstração
 │   │   └── schedules.js          # Rotas de agendamento (GET, POST e DELETE)
 │   ├── styles/
 │   │   ├── index.css             # Ponto de entrada: importa os demais arquivos
@@ -211,9 +246,11 @@ Os ícones SVG do Figma são aplicados como **máscara CSS** (`mask-image`), ent
 │   │   └── opening-hours.js      # Horários de funcionamento e disponibilidade
 │   └── main.js                   # Inicializa o tema, o formulário e a agenda
 ├── tests/                        # Testes unitários (Vitest)
-├── .env.example
+├── .env.example                  # Endereço da API local
+├── .env.pages                    # Ativa o modo demonstração no build do Pages
 ├── index.html
-└── package.json
+├── package.json
+└── vite.config.js                # Caminho base /Hair-Day/ no build do Pages
 ```
 
 ## Pré-requisitos
@@ -224,7 +261,9 @@ Os ícones SVG do Figma são aplicados como **máscara CSS** (`mask-image`), ent
 
 ## Execução
 
-Clone o repositório e instale as dependências:
+O projeto está publicado no GitHub Pages, em modo demonstração: https://montenegroengcomp.github.io/Hair-Day/
+
+Para executar localmente com a API, clone o repositório e instale as dependências:
 
 ```bash
 git clone https://github.com/MontenegroEngComp/Hair-Day.git
@@ -250,7 +289,8 @@ Na primeira execução, o arquivo `server.json` é criado com agendamentos de ex
 | `npm run dev` | Inicia apenas a aplicação |
 | `npm run server` | Inicia apenas a API (cria o `server.json` se ele não existir) |
 | `npm run seed` | Recria o `server.json` com os agendamentos de exemplo |
-| `npm run build` | Gera a versão de produção em `dist/` |
+| `npm run build` | Gera a versão de produção em `dist/`, usando a API |
+| `npm run build:pages` | Gera a versão do GitHub Pages em `dist/`, em modo demonstração |
 | `npm run preview` | Serve localmente a versão de produção |
 | `npm test` | Executa os testes unitários |
 
@@ -264,7 +304,7 @@ VITE_API_URL=http://localhost:3333
 
 ## Testes
 
-As regras de negócio ficam em funções puras, sem dependência do DOM, e são cobertas por **43 testes unitários** com Vitest:
+As regras de negócio ficam em funções puras, sem dependência do DOM, e são cobertas por **49 testes unitários** com Vitest, que também rodam no workflow de deploy:
 
 ```bash
 npm test
@@ -275,6 +315,7 @@ npm test
 | [`tests/validation.test.js`](tests/validation.test.js) | Normalização e validação do nome, da data e do horário |
 | [`tests/opening-hours.test.js`](tests/opening-hours.test.js) | Horários de funcionamento, período de cada horário, disponibilidade e agrupamento |
 | [`tests/date.test.js`](tests/date.test.js) | Formatação no fuso local, datas inválidas (ex.: 30/02) e horários passados |
+| [`tests/local-api.test.js`](tests/local-api.test.js) | Rotas da API do modo demonstração: filtro por data, criação, cancelamento e erro 404 |
 
 ## Decisões técnicas
 
@@ -284,6 +325,7 @@ npm test
 - **Datas no fuso local**: `toISOString()` usa UTC e, à noite no Brasil, retornaria o dia seguinte. As datas são montadas com `getFullYear`/`getMonth`/`getDate`, e `30/02` é rejeitado mesmo com formato válido.
 - **Respostas fora de ordem**: ao trocar a data rapidamente, cada carregamento recebe um identificador e respostas antigas são descartadas, evitando que a lista mostre o dia errado.
 - **Revalidação antes do `POST`**: a disponibilidade é conferida na API imediatamente antes de salvar, já que outro atendente pode ter reservado o horário.
+- **Modo demonstração na camada de serviço**: a troca entre json-server e `localStorage` acontece em um único ponto, o cliente HTTP. A API local responde às mesmas rotas e no mesmo formato, então nenhum outro módulo precisa saber em qual modo a aplicação está.
 - **Proteção contra injeção de HTML**: nomes vindos da API são inseridos com `textContent`, nunca com `innerHTML`.
 - **Tema sem "piscar"**: um script inline no `<head>` aplica o tema salvo antes da primeira pintura; o acesso ao `localStorage` é protegido por `try/catch` para funcionar também em navegação privada.
 - **Acessibilidade**: HTML semântico, link para pular ao formulário, foco visível em todos os controles, regiões `aria-live` para erros, resumo da agenda e notificações, `aria-busy` durante carregamentos e respeito a `prefers-reduced-motion`.
@@ -292,8 +334,9 @@ npm test
 
 | Validação | Resultado |
 | --- | --- |
-| Testes unitários (`npm test`) | 43 testes aprovados |
-| Build de produção (`npm run build`) | Concluído sem avisos |
+| Testes unitários (`npm test`) | 49 testes aprovados |
+| Builds de produção (`npm run build` e `npm run build:pages`) | Concluídos sem avisos; no build do Pages, todos os arquivos usam o caminho `/Hair-Day/` |
+| Versão do Pages servida localmente, sem a API | Agendamento, cancelamento e persistência após recarregar funcionando, sem nenhuma requisição ao json-server |
 | Envio do formulário vazio | Mensagens de erro em horário e nome, com foco no primeiro campo inválido |
 | Nome com menos de 3 caracteres | Erro exibido e removido assim que o nome é corrigido |
 | Agendamento para o dia seguinte | Toast de sucesso, agenda aberta no dia reservado, horário bloqueado e campo de nome limpo |
