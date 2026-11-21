@@ -1,3 +1,14 @@
+import { ApiError, NOT_FOUND_MESSAGE } from "./api-error.js"
+import { localRequest } from "./local-api.js"
+
+export { ApiError }
+
+/**
+ * No modo de demonstração (build do GitHub Pages, sem servidor), as requisições
+ * são respondidas por uma API local que guarda os dados no navegador.
+ */
+export const IS_DEMO = import.meta.env.VITE_API_MODE === "local"
+
 const BASE_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:3333").replace(
   /\/$/,
   "",
@@ -5,19 +16,13 @@ const BASE_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:3333").repla
 
 const DEFAULT_TIMEOUT = 8000
 
-export class ApiError extends Error {
-  constructor(message, { status = null, cause } = {}) {
-    super(message, { cause })
-    this.name = "ApiError"
-    this.status = status
-  }
-}
-
 /**
  * Cliente HTTP mínimo sobre o fetch: monta a URL, serializa o corpo em JSON,
  * aplica um tempo limite e converte falhas em mensagens amigáveis (ApiError).
  */
 export async function request(path, { method = "GET", body, timeout = DEFAULT_TIMEOUT } = {}) {
+  if (IS_DEMO) return localRequest(path, { method, body })
+
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), timeout)
 
@@ -56,7 +61,7 @@ export async function request(path, { method = "GET", body, timeout = DEFAULT_TI
 }
 
 function getStatusMessage(status) {
-  if (status === 404) return "O agendamento não foi encontrado. Ele pode já ter sido cancelado."
+  if (status === 404) return NOT_FOUND_MESSAGE
   if (status >= 500) return "O servidor encontrou um erro. Tente novamente em instantes."
 
   return `Não foi possível concluir a operação (erro ${status}).`
